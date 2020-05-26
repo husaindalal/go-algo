@@ -1,34 +1,18 @@
 package main
 
 import (
-	"go-algo/tree"
+	"fmt"
+	"go-algo/cache"
 )
 
 func main() {
-	mytree := tree.Tree{
-		Root: &tree.Node{
-			Val: 'A',
-			Left: &tree.Node{
-				Val: 'B',
-				Left: &tree.Node{
-					Val: 'D',
-				},
-				Right: &tree.Node{
-					Val: 'E',
-				},
-			},
-			Right: &tree.Node{
-				Val: 'C',
-				Right: &tree.Node{
-					Val: 'G',
-				},
-			},
-		},
-	}
+	lru := cache.New(3)
 
-	//mytree.LevelOrder()
-	//mytree.InOrder()
+	lru.Add("A", 1)
+	lru.Add("B", 2)
+	lru.Add("C", 3)
+	lru.Add("D", 4)
+	lru.Add("E", 5)
 
-	//fmt.Println(mytree.IsSymmetric())
-	mytree.LeftVisibleNodes()
+	fmt.Printf("lru %v ", lru)
 }

@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-type Value int
+type Value string
 
 type Node struct {
 	Val   Value
@@ -127,12 +127,13 @@ func (t *Tree) IsSymmetric() bool {
 	return isSymmetric
 }
 
-func (t *Tree) LeftVisibleNodes() int {
+func (t *Tree) LeftVisibleNodes() []*Node {
 	// if t == nil ...
 	// bfs with level
 	level := 0
 	levelCount := 1
 	queue := []*Node{t.Root}
+	results := []*Node{t.Root}
 
 	for len(queue) != 0 {
 		nextLevelCount := 0
@@ -146,10 +147,16 @@ func (t *Tree) LeftVisibleNodes() int {
 
 			if node.Left != nil {
 				queue = append(queue, node.Left)
+				if nextLevelCount == 0 {
+					results = append(results, node.Left)
+				}
 				nextLevelCount = nextLevelCount + 1
 			}
 			if node.Right != nil {
 				queue = append(queue, node.Right)
+				if nextLevelCount == 0 {
+					results = append(results, node.Right)
+				}
 				nextLevelCount = nextLevelCount + 1
 			}
 
@@ -158,7 +165,7 @@ func (t *Tree) LeftVisibleNodes() int {
 		fmt.Printf("level %v, levelCount %v \n", level, levelCount)
 	}
 
-	return level
+	return results
 }
 
 //func main() {
@@ -182,4 +189,43 @@ func (t *Tree) LeftVisibleNodes() int {
 //
 //	mytree.LevelOrder()
 //	mytree.InOrder()
+//}
+
+//
+//func main() {
+//	mytree := tree.Tree{
+//		Root: &tree.Node{
+//			Val: "A",
+//			Left: &tree.Node{
+//				Val: "B",
+//				Left: &tree.Node{
+//					Val: "D",
+//				},
+//				Right: &tree.Node{
+//					Val: "E",
+//				},
+//			},
+//			Right: &tree.Node{
+//				Val: "C",
+//				Right: &tree.Node{
+//					Val: "G",
+//					Left: &tree.Node{
+//						Val: "H",
+//						Right: &tree.Node{
+//							Val: "I",
+//						},
+//					},
+//				},
+//			},
+//		},
+//	}
+//
+//	//mytree.LevelOrder()
+//	//mytree.InOrder()
+//
+//	//fmt.Println(mytree.IsSymmetric())
+//	results := mytree.LeftVisibleNodes()
+//	for _, res := range results {
+//		fmt.Println(res.Val)
+//	}
 //}
