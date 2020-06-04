@@ -63,6 +63,9 @@ func ArrangeLetters(dictionary []string) []Vertex {
 
 }
 
+// Topological sort
+//https://www.geeksforgeeks.org/topological-sorting/
+
 func sortGraph(graph Graph) []Vertex {
 
 	// find the indegree of each vertex
@@ -112,54 +115,21 @@ func sortGraph(graph Graph) []Vertex {
 	return result
 }
 
-//func findOrder(graph Graph) []Vertex {
-//	indegree := map[Vertex]int{}
-//
-//	for vertex, val := range graph.Edges {
-//		fmt.Printf("graph %c %c\n", vertex, val)
-//		indegree[vertex] = 0
-//	}
-//
-//	for _, neighbors := range graph.Edges {
-//		for _, v := range neighbors {
-//			indegree[v] ++
-//
-//		}
-//	}
-//
-//	fmt.Printf("indegree %v \n", indegree)
-//
-//	var starts []int
-//	for i, incoming := range indegree {
-//		if incoming == 0 {
-//			starts = append(starts, i)
-//		}
-//	}
-//
-//	var res []int
-//	var visitNum int
-//	for _, start := range starts {
-//		queue := []int{start}
-//		res = append(res, start)
-//		visitNum += 1
-//		for len(queue) > 0 {
-//			node := queue[0]
-//			queue = queue[1:]
-//			neighbors, ok := graph[node]
-//			if ok {
-//				for _, neighbor := range neighbors {
-//					incomings[neighbor] -= 1
-//					if incomings[neighbor] == 0 {
-//						queue = append(queue, neighbor)
-//						res = append(res, neighbor)
-//						visitNum += 1
-//					}
-//				}
-//			}
-//		}
-//	}
-//	if visitNum == numCourses {
-//		return res
-//	}
-//	return []int{}
-//}
+/*
+	result := fb.ArrangeLetters([]string{
+		"eterq",
+		"errsd",
+		"yrtwe",
+		"yrzdvs",
+		"fhhs",
+		"fff",
+		"tjsg",
+		"tjadsd",
+		"tjadsdrr",
+	})
+
+	for _, r := range result {
+		fmt.Printf("arranged %c\n", r)
+
+	}
+*/

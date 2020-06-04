@@ -7,20 +7,19 @@ import (
 
 func main() {
 
-	result := fb.ArrangeLetters([]string{
-		"eterq",
-		"errsd",
-		"yrtwe",
-		"yrzdvs",
-		"fhhs",
-		"fff",
-		"tjsg",
-		"tjadsd",
-		"tjadsdrr",
-	})
+	cache := fb.NewCache(3)
 
-	for _, r := range result {
-		fmt.Printf("arranged %c\n", r)
+	fmt.Printf("LRUGet %v \n", cache.LRUGet(1))
 
-	}
+	fmt.Printf("LRUPut %v \n", cache.LRUPut(1, "A"))
+	fmt.Printf("LRUGet %v \n", cache.LRUGet(1))
+
+	fmt.Printf("LRUPut %v \n", cache.LRUPut(2, "B"))
+	fmt.Printf("LRUPut %v \n", cache.LRUPut(3, "C"))
+	fmt.Printf("LRUPut %v \n", cache.LRUPut(4, "D"))
+
+	fmt.Printf("LRUGet %v \n", cache.LRUGet(1))
+	fmt.Printf("LRUGet %v \n", cache.LRUGet(2))
+	//fmt.Printf("LRUGet %v \n", cache.LRUGet(1))
+
 }
