@@ -1,92 +1,139 @@
 package fb
 
-import (
-	"container/list"
-)
+import "container/list"
+import "errors"
 
 type node struct {
-	key   int
+	key   string
 	value string
 }
 
-type NextCache struct {
-	lookup   map[int]*list.Element
-	queue    list.List // nodes
+type NDCache struct {
+	lookup   map[string]*list.Element
+	queue    list.List
 	capacity int
-	// mutex
-	//mutex sync.RWMutex
 }
 
-func NewCache(capacity int) *NextCache {
-	return &NextCache{
-		lookup:   map[int]*list.Element{},
-		queue:    list.List{},
-		capacity: capacity,
-		//mutex:    sync.RWMutex{},
-	}
-}
+func (c *NDCache) get(key string) (string, error) {
+	// validate // TODO
 
-func (n *NextCache) LRUPut(key int, value string) string {
-
-	//n.mutex.Lock()
-	//defer n.mutex.Unlock()
-
-	// already present
-	data := n.LRUGet(key)
-	if data != "" {
-		// TODO update
-		return data
-	}
-
-	// not present
-	// if queue full, remove tail
-	if len(n.lookup) == n.capacity {
-		n.removeTail()
-	}
-
-	element := &list.Element{
-		Value: node{
-			key:   key,
-			value: value,
-		},
-	}
-	// add element to head of queue
-	n.queue.PushFront(element)
-
-	// add element to lookup
-	n.lookup[key] = element
-
-	return value
-}
-
-func (n *NextCache) LRUGet(key int) string {
-
-	//n.mutex.RLock()
-	//defer n.mutex.RUnlock()
-
-	// check in lookup
-	element, ok := n.lookup[key]
-
-	// if not present return ""
+	//not present
+	element, ok := c.lookup[key]
 	if !ok {
-		return "" // TODO throw err
+		return "", errors.New("not found")
 	}
 
-	// if present move to front of queue
-	n.queue.MoveToFront(element)
+	// move to front of queue
+	c.queue.MoveToFront(element)
 
-	// return value
-	return element.Value.(node).value
+	// return from lookup
+	return c.lookup[key].Value.(*node).value, nil // TODO
 }
 
-func (n *NextCache) removeTail() {
-	element := n.queue.Back()
-	n.queue.Remove(element)
-	delete(n.lookup, element.Value.(*list.Element).Value.(node).key)
+/////////////////////////////
+
+func (c *NDCache) set(key string, value string) {
+	// validate // TODO
+
+	// if found then update
+	_, err := c.get(key)
+	if err == nil {
+		c.update(key, value)
+		return
+	}
+
+	// not found then check capacity
+	// if full evict
+	if c.queue.Len() >= c.capacity {
+		c.evict()
+	}
+
+	// add to lookup and front of queue
+	element := &node{
+		key:   key,
+		value: value,
+	}
+
+	elem := c.queue.PushFront(element)
+	c.lookup[key] = elem
+
+}
+
+func (c *NDCache) update(key string, value string) {
+	// TODO
+}
+
+func (c *NDCache) evict() {
+	// TODO
+
+	elem := c.queue.Back()
+	c.queue.Remove(elem)
+
+	key := elem.Value.(*node).key
+	delete(c.lookup, key)
+
 }
 
 /*
+func main() {
 
+	cache := NDCache{
+		lookup: map[string]*list.Element{},
+		queue: list.List{},
+		capacity: 3,
+	}
+
+	cache.set("A", "W")
+
+	value, err := cache.get("A")
+	if err != nil {
+		fmt.Printf("err get %v\n", err)
+	} else {
+		fmt.Printf("get %v\n", value)
+	}
+
+	fmt.Printf("cache %v\n", cache)
+
+	cache.set("B", "X")
+	cache.set("C", "Y")
+	cache.set("D", "Z")
+
+	value, err = cache.get("A")
+	if err != nil {
+		fmt.Printf("err get %v\n", err)
+	} else {
+		fmt.Printf("get %v\n", value)
+	}
+
+	value, err = cache.get("B")
+	if err != nil {
+		fmt.Printf("err get %v\n", err)
+	} else {
+		fmt.Printf("get %v\n", value)
+	}
+
+	fmt.Printf("cache %v\n", cache)
+
+
+
+	cache.set("P", "Q")
+	value, err = cache.get("B")
+	if err != nil {
+		fmt.Printf("err get %v\n", err)
+	} else {
+		fmt.Printf("get %v\n", value)
+	}
+
+	value, err = cache.get("C")
+	if err != nil {
+		fmt.Printf("err get %v\n", err)
+	} else {
+		fmt.Printf("get %v\n", value)
+	}
+
+}
+
+/*
 
 func main() {
 

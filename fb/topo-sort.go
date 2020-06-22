@@ -44,4 +44,5 @@ func (t *TopoGraph) TopoSort() []string {
 
 	}
 
+	return nil
 }

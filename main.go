@@ -2,24 +2,21 @@ package main
 
 import (
 	"fmt"
-	"go-algo/fb"
+	"go-algo/general"
 )
 
 func main() {
 
-	cache := fb.NewCache(3)
+	tb := general.NewLeakyBucket(3, 10)
 
-	fmt.Printf("LRUGet %v \n", cache.LRUGet(1))
+	fmt.Printf("result %v %v\n", 1, tb.IsAllowed("A", 1))
+	fmt.Printf("result %v %v\n", 2, tb.IsAllowed("A", 2))
+	fmt.Printf("result %v %v\n", 2, tb.IsAllowed("A", 2))
+	fmt.Printf("result %v %v\n", 4, tb.IsAllowed("A", 4))
+	fmt.Printf("result %v %v\n", 10, tb.IsAllowed("A", 10))
+	fmt.Printf("result %v %v\n", 12, tb.IsAllowed("A", 12))
 
-	fmt.Printf("LRUPut %v \n", cache.LRUPut(1, "A"))
-	fmt.Printf("LRUGet %v \n", cache.LRUGet(1))
-
-	fmt.Printf("LRUPut %v \n", cache.LRUPut(2, "B"))
-	fmt.Printf("LRUPut %v \n", cache.LRUPut(3, "C"))
-	fmt.Printf("LRUPut %v \n", cache.LRUPut(4, "D"))
-
-	fmt.Printf("LRUGet %v \n", cache.LRUGet(1))
-	fmt.Printf("LRUGet %v \n", cache.LRUGet(2))
-	//fmt.Printf("LRUGet %v \n", cache.LRUGet(1))
-
+	fmt.Printf("result %v %v\n", "", tb)
+	tb.Cleanup(20)
+	fmt.Printf("result %v %v\n", "", tb)
 }
