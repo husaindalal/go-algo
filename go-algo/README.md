@@ -1,0 +1,2 @@
+# go-algo
+Algorithm practice
