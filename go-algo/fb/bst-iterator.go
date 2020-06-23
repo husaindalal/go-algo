@@ -6,7 +6,7 @@ import (
 
 type BiNode struct {
 	Value string
-	Left *BiNode
+	Left  *BiNode
 	Right *BiNode
 }
 
@@ -16,16 +16,13 @@ type BSTIterator struct {
 	Stack []*BiNode
 }
 
-
-
-
 func (b *BSTIterator) Next() string {
 	// validate
 	if !b.HasNext() {
 		return ""
 	}
 
-	n := len(b.Stack)-1
+	n := len(b.Stack) - 1
 	node := b.Stack[n]
 	b.Stack = b.Stack[:n]
 
@@ -65,16 +62,16 @@ func (b *BSTIterator) Print() {
 }
 
 func print(node *BiNode, space int, nodePos string) {
-	for i:=0; i< space; i++ {
+	for i := 0; i < space; i++ {
 		fmt.Print(" ")
 	}
 
-	fmt.Printf("%v:%v\n",nodePos, node.Value)
+	fmt.Printf("%v:%v\n", nodePos, node.Value)
 	if node.Left != nil {
-		print(node.Left, space + 2, "L")
+		print(node.Left, space+2, "L")
 	}
 	if node.Right != nil {
-		print(node.Right, space + 2, "R")
+		print(node.Right, space+2, "R")
 	}
 }
 
@@ -106,7 +103,7 @@ func print(node *BiNode, space int, nodePos string) {
 	}
 
 	iterator := fb.BSTIterator{
-		Root:  root,
+		GetRoot:  root,
 		Stack: []*fb.BiNode{},
 	}
 
@@ -136,4 +133,4 @@ func print(node *BiNode, space int, nodePos string) {
 	fmt.Printf("factor %v %v %v %v\n", result, "x","y","z")
 	iterator.Print()
 
- */
+*/

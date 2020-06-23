@@ -103,7 +103,7 @@ func print(node *BiNode, space int, nodePos string) {
 	}
 
 	iterator := fb.BSTIterator{
-		Root:  root,
+		GetRoot:  root,
 		Stack: []*fb.BiNode{},
 	}
 

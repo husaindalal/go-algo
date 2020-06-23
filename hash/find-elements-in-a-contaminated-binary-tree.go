@@ -15,7 +15,7 @@ type FindElements struct {
 func Constructor(root *BinaryTreeNode) FindElements {
 	// level order
 	//elements := FindElements{
-	//	Root: &BinaryTreeNode{
+	//	GetRoot: &BinaryTreeNode{
 	//		Value: 0,
 	//		Left:  nil,
 	//		Right: nil,

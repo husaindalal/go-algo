@@ -170,7 +170,7 @@ func (t *Tree) LeftVisibleNodes() []*Node {
 
 //func main() {
 //	mytree := tree.Tree{
-//		Root: &tree.Node{
+//		GetRoot: &tree.Node{
 //			Val:   10,
 //			Left:  &tree.Node{
 //				Val: 20,
@@ -194,7 +194,7 @@ func (t *Tree) LeftVisibleNodes() []*Node {
 //
 //func main() {
 //	mytree := tree.Tree{
-//		Root: &tree.Node{
+//		GetRoot: &tree.Node{
 //			Val: "A",
 //			Left: &tree.Node{
 //				Val: "B",
