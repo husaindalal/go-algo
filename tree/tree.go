@@ -16,6 +16,12 @@ type Tree struct {
 	Root *Node
 }
 
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
 func (t *Tree) LevelOrder() {
 	if t == nil {
 		fmt.Println("nil")

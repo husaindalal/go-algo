@@ -2,25 +2,77 @@ package main
 
 import (
 	"fmt"
-	"go-algo/graph"
+	"go-algo/tree"
 )
 
 func main() {
 
-	fmt.Printf("result %v\n", graph.CanVisitAllRooms([][]int{
-		{1},
-		{2},
-		{3},
-		{},
-	}))
+	//search := &tree.TreeNode{
+	//	Val:   12,
+	//	Left:  nil,
+	//	Right: nil,
+	//}
 
-	fmt.Printf("result %v\n", graph.CanVisitAllRooms([][]int{
-		{1, 3},
-		{3, 0, 1},
-		{2},
-		{0},
-	}))
+	root := &tree.TreeNode{
+		Val: 10,
+		Left: &tree.TreeNode{
+			Val: 5,
+			Left: &tree.TreeNode{
+				Val:   4,
+				Left:  nil,
+				Right: nil,
+			},
+		},
+		Right: &tree.TreeNode{
+			Val: 15,
+			Left: &tree.TreeNode{
+				Val:   12,
+				Left:  nil,
+				Right: nil,
+			},
+			Right: &tree.TreeNode{
+				Val:  17,
+				Left: nil,
+				Right: &tree.TreeNode{
+					Val:   20,
+					Left:  nil,
+					Right: nil,
+				},
+			},
+		},
+	}
 
-	//fmt.Printf("result %v\n", graph.GetKthPowerValue(1, 1, 1))
+	//root := &tree.TreeNextNode{
+	//	Val:   1,
+	//	Left:  &tree.TreeNextNode{
+	//		Val: 11,
+	//		Left: &tree.TreeNextNode{
+	//			Val:   111,
+	//			Left:  nil,
+	//			Right: nil,
+	//		},
+	//		Right: &tree.TreeNextNode{
+	//			Val:   112,
+	//			Left:  nil,
+	//			Right: nil,
+	//		},
+	//	},
+	//	Right: &tree.TreeNextNode{
+	//		Val:   12,
+	//		Left:  &tree.TreeNextNode{
+	//			Val:   121,
+	//			Left:  nil,
+	//			Right: nil,
+	//		},
+	//		Right: &tree.TreeNextNode{
+	//			Val:   122,
+	//			Left:  nil,
+	//			Right: nil,
+	//		},
+	//	},
+	//}
 
+	result := tree.InOrderSuccessor(root, root)
+	fmt.Printf("result %v\n", result)
+	tree.Print(root, 0, "O")
 }

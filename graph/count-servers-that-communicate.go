@@ -16,15 +16,6 @@ ans = 3
 	Better simpler way is to user 4 directions and
 */
 
-type ServerVertex struct {
-	I int
-	J int
-}
-
-type ServerGraph struct {
-	Edges map[ServerVertex][]*ServerVertex
-}
-
 func CountServers(grid [][]int) int {
 
 	// grid -> graph map[Vertex][]*Vertex

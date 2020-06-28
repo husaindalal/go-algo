@@ -1,4 +1,4 @@
-package general
+package basic
 
 import (
 	"container/list"
